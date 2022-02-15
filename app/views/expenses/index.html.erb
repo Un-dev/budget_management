@@ -1,5 +1,5 @@
-<p class='text-red-400 text-4xl'>Salut</p>
-<p class='text-red-400 text-4xl'>Salut</p>
-<p class='text-red-400 text-4xl'>Salut</p>
-<p class='text-red-400 text-4xl'>Salut</p>
 <p class='text-blue-400'>Salut</p>
+
+<% @expenses.find_each do |expense| %>
+  <%= render 'expense_card', expense: expense%>
+<%end%>

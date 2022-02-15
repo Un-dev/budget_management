@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_205555) do
   create_table "budgets", force: :cascade do |t|
     t.date "starts_at"
     t.date "ends_at"
+    t.boolean "monthly"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

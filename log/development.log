@@ -17,3 +17,886 @@ Processing by ExpensesController#index as HTML
 Completed 200 OK in 21ms (Views: 19.7ms | ActiveRecord: 0.0ms | Allocations: 8893)
 
 
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (9.2ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "ends_at", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["starts_at", "2022-01-01"], ["ends_at", "2022-01-31"], ["created_at", "2021-12-24 17:40:27.669010"], ["updated_at", "2021-12-24 17:40:27.669010"]]
+  [1m[36mTRANSACTION (6.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mBudget Load (0.9ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" ORDER BY "budgets"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mBudget Load (0.6ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" ORDER BY "budgets"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 1]]
+  [1m[36mBudget Load (0.7ms)[0m  [1m[34mSELECT "budgets".* FROM "budgets" ORDER BY "budgets"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 1]]
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (36.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_dev"[0m
+  [1m[35m (28.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_test"[0m
+  [1m[35m (117.1ms)[0m  [1m[35mCREATE DATABASE "budget_dev" ENCODING = 'utf8'[0m
+  [1m[35m (32.8ms)[0m  [1m[35mCREATE DATABASE "budget_test" ENCODING = 'utf8'[0m
+  [1m[35m (11.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6586007212054593750)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateCategory (20211218205541)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.2ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211218205541"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBudget (20211218205550)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211218205550"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateExpense (20211218205555)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (10.3ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20211218205555"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-12-24 17:52:18.532897"], ["updated_at", "2021-12-24 17:52:18.532897"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(6586007212054593750)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.7ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Transports"], ["created_at", "2021-12-24 17:52:27.567987"], ["updated_at", "2021-12-24 17:52:27.567987"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Nourriture"], ["created_at", "2021-12-24 17:52:27.571089"], ["updated_at", "2021-12-24 17:52:27.571089"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Loisirs"], ["created_at", "2021-12-24 17:52:27.572948"], ["updated_at", "2021-12-24 17:52:27.572948"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Tech gears"], ["created_at", "2021-12-24 17:52:27.575187"], ["updated_at", "2021-12-24 17:52:27.575187"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Vetements"], ["created_at", "2021-12-24 17:52:27.577167"], ["updated_at", "2021-12-24 17:52:27.577167"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Beauté"], ["created_at", "2021-12-24 17:52:27.582073"], ["updated_at", "2021-12-24 17:52:27.582073"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (1.3ms)[0m  [1m[32mINSERT INTO "budgets" ("monthly", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["monthly", true], ["created_at", "2021-12-24 17:52:27.622480"], ["updated_at", "2021-12-24 17:52:27.622480"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:24:38 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.6ms | Allocations: 308)
+  Rendered layout layouts/application.html.erb (Duration: 14.0ms | Allocations: 17564)
+Completed 200 OK in 22ms (Views: 15.8ms | Allocations: 22092)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:24:55 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 37)
+  Rendered layout layouts/application.html.erb (Duration: 20.3ms | Allocations: 8427)
+Completed 200 OK in 22ms (Views: 21.2ms | Allocations: 8889)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:25:21 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 37)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | Allocations: 8427)
+Completed 200 OK in 18ms (Views: 17.7ms | Allocations: 8886)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:25:39 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.0ms | Allocations: 37)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | Allocations: 8427)
+Completed 200 OK in 5ms (Views: 5.1ms | Allocations: 8886)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:25:46 +0100
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.4ms | Allocations: 307)
+  Rendered layout layouts/application.html.erb (Duration: 16.6ms | Allocations: 18198)
+Completed 200 OK in 23ms (Views: 18.1ms | ActiveRecord: 0.0ms | Allocations: 22732)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:26:27 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.7ms | Allocations: 122)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | Allocations: 8820)
+Completed 200 OK in 23ms (Views: 21.0ms | ActiveRecord: 0.0ms | Allocations: 10049)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:26:59 +0100
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.3ms | Allocations: 307)
+  Rendered layout layouts/application.html.erb (Duration: 12.9ms | Allocations: 18198)
+Completed 200 OK in 18ms (Views: 14.0ms | ActiveRecord: 0.0ms | Allocations: 22732)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:27:01 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.4ms | Allocations: 37)
+  Rendered layout layouts/application.html.erb (Duration: 14.3ms | Allocations: 8427)
+Completed 200 OK in 17ms (Views: 15.5ms | ActiveRecord: 0.0ms | Allocations: 8893)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:27:03 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.1ms | Allocations: 37)
+  Rendered layout layouts/application.html.erb (Duration: 16.1ms | Allocations: 8426)
+Completed 200 OK in 17ms (Views: 16.7ms | ActiveRecord: 0.0ms | Allocations: 8879)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:27:30 +0100
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.4ms | Allocations: 307)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /Users/francois/personel/budget_management/public/packs
+[Webpacker] Hash: 2034dd941d5476d8645c
+Version: webpack 4.46.0
+Time: 311ms
+Built at: 24/12/2021 19:27:31
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-3dd0dc24d9c39bc09227.js    125 KiB  application  [emitted] [immutable]  application
+js/application-3dd0dc24d9c39bc09227.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-3dd0dc24d9c39bc09227.js js/application-3dd0dc24d9c39bc09227.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 1007.9ms | Allocations: 36143)
+Completed 200 OK in 1015ms (Views: 1009.5ms | ActiveRecord: 0.0ms | Allocations: 40676)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2021-12-24 19:28:08 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.7ms | Allocations: 122)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 20.8ms | Allocations: 10548)
+Completed 200 OK in 25ms (Views: 23.6ms | ActiveRecord: 0.0ms | Allocations: 11777)
+
+
+Started GET "/" for 127.0.0.1 at 2022-02-15 09:31:03 +0100
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:31:03 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.4ms | Allocations: 296)
+  Rendered layout layouts/application.html.erb (Duration: 24.4ms | Allocations: 20321)
+Completed 200 OK in 33ms (Views: 26.1ms | ActiveRecord: 0.0ms | Allocations: 24897)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:34:04 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  Rendered expenses/index.html.erb within layouts/application (Duration: 0.3ms | Allocations: 148)
+  Rendered layout layouts/application.html.erb (Duration: 8.0ms | Allocations: 9446)
+Completed 200 OK in 11ms (Views: 9.3ms | ActiveRecord: 0.0ms | Allocations: 11312)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:34:50 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.7ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:6
+  Rendered expenses/index.html.erb within layouts/application (Duration: 29.4ms | Allocations: 2064)
+  Rendered layout layouts/application.html.erb (Duration: 44.3ms | Allocations: 10759)
+Completed 200 OK in 49ms (Views: 27.5ms | ActiveRecord: 19.8ms | Allocations: 11986)
+
+
+  [1m[36mExpense Load (0.9ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mCategory Load (3.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (5.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (7583.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_dev"[0m
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (43.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_dev"[0m
+  [1m[35m (29.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_test"[0m
+  [1m[35m (123.7ms)[0m  [1m[35mCREATE DATABASE "budget_dev" ENCODING = 'utf8'[0m
+  [1m[35m (33.9ms)[0m  [1m[35mCREATE DATABASE "budget_test" ENCODING = 'utf8'[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "expenses" CASCADE[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "expenses" ADD CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211218205555)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211218205541),
+(20211218205550);
+
+[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-02-15 08:40:57.160787"], ["updated_at", "2022-02-15 08:40:57.160787"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "1817bc70eea6195861ae2cef7a696526eafe666e"], ["created_at", "2022-02-15 08:40:57.164756"], ["updated_at", "2022-02-15 08:40:57.164756"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "expenses" CASCADE[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "expenses" ADD CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211218205555)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211218205541),
+(20211218205550);
+
+[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-02-15 08:40:57.231978"], ["updated_at", "2022-02-15 08:40:57.231978"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2022-02-15 08:40:57.235376"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "1817bc70eea6195861ae2cef7a696526eafe666e"], ["created_at", "2022-02-15 08:40:57.238253"], ["updated_at", "2022-02-15 08:40:57.238253"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Transports"], ["created_at", "2022-02-15 08:40:57.273559"], ["updated_at", "2022-02-15 08:40:57.273559"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Nourriture"], ["created_at", "2022-02-15 08:40:57.276568"], ["updated_at", "2022-02-15 08:40:57.276568"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Loisirs"], ["created_at", "2022-02-15 08:40:57.278668"], ["updated_at", "2022-02-15 08:40:57.278668"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Tech gears"], ["created_at", "2022-02-15 08:40:57.280743"], ["updated_at", "2022-02-15 08:40:57.280743"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Vetements"], ["created_at", "2022-02-15 08:40:57.282901"], ["updated_at", "2022-02-15 08:40:57.282901"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Beauté"], ["created_at", "2022-02-15 08:40:57.284975"], ["updated_at", "2022-02-15 08:40:57.284975"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.4ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "ends_at", "monthly", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2022-01-01"], ["ends_at", "2022-01-31"], ["monthly", true], ["created_at", "2022-02-15 08:40:57.294135"], ["updated_at", "2022-02-15 08:40:57.294135"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.2ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "monthly", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["starts_at", "2022-02-01"], ["monthly", true], ["created_at", "2022-02-15 08:40:57.297087"], ["updated_at", "2022-02-15 08:40:57.297087"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE DATABASE "budget_dev" ENCODING = 'utf8'[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE "budget_test" ENCODING = 'utf8'[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "expenses" CASCADE[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "expenses" ADD CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (6.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "expenses" CASCADE[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "expenses" ADD CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.5ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "development"], ["updated_at", "2022-02-15 08:41:46.450294"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.7ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2022-02-15 08:41:46.463885"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.8ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Transports"], ["created_at", "2022-02-15 08:41:46.590828"], ["updated_at", "2022-02-15 08:41:46.590828"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Nourriture"], ["created_at", "2022-02-15 08:41:46.594609"], ["updated_at", "2022-02-15 08:41:46.594609"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Loisirs"], ["created_at", "2022-02-15 08:41:46.597622"], ["updated_at", "2022-02-15 08:41:46.597622"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Tech gears"], ["created_at", "2022-02-15 08:41:46.600260"], ["updated_at", "2022-02-15 08:41:46.600260"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Vetements"], ["created_at", "2022-02-15 08:41:46.602855"], ["updated_at", "2022-02-15 08:41:46.602855"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Beauté"], ["created_at", "2022-02-15 08:41:46.605404"], ["updated_at", "2022-02-15 08:41:46.605404"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (1.4ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "ends_at", "monthly", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2022-01-01"], ["ends_at", "2022-01-31"], ["monthly", true], ["created_at", "2022-02-15 08:41:46.621124"], ["updated_at", "2022-02-15 08:41:46.621124"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.4ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "monthly", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["starts_at", "2022-02-01"], ["monthly", true], ["created_at", "2022-02-15 08:41:46.636541"], ["updated_at", "2022-02-15 08:41:46.636541"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mExpense Create (2.3ms)[0m  [1m[32mINSERT INTO "expenses" ("date", "title", "amount", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["date", "2022-02-15"], ["title", "Essence"], ["amount", 50], ["category_id", 1], ["created_at", "2022-02-15 08:41:46.664834"], ["updated_at", "2022-02-15 08:41:46.664834"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (42.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_dev"[0m
+  [1m[35m (24.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "budget_test"[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE DATABASE "budget_dev" ENCODING = 'utf8'[0m
+  [1m[35m (33.0ms)[0m  [1m[35mCREATE DATABASE "budget_test" ENCODING = 'utf8'[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "expenses" CASCADE[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "expenses" ADD CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211218205555)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211218205541),
+(20211218205550);
+
+[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-02-15 08:41:52.953457"], ["updated_at", "2022-02-15 08:41:52.953457"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "1817bc70eea6195861ae2cef7a696526eafe666e"], ["created_at", "2022-02-15 08:41:52.957423"], ["updated_at", "2022-02-15 08:41:52.957423"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "budgets" CASCADE[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "budgets" ("id" bigserial primary key, "starts_at" date, "ends_at" date, "monthly" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "title" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "expenses" CASCADE[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "expenses" ("id" bigserial primary key, "date" date, "title" character varying, "amount" integer, "category_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_expenses_on_category_id" ON "expenses" ("category_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "expenses" ADD CONSTRAINT "fk_rails_06966d0da0"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20211218205555)[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20211218205541),
+(20211218205550);
+
+[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-02-15 08:41:52.990047"], ["updated_at", "2022-02-15 08:41:52.990047"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2022-02-15 08:41:52.992811"], ["key", "environment"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "1817bc70eea6195861ae2cef7a696526eafe666e"], ["created_at", "2022-02-15 08:41:52.994970"], ["updated_at", "2022-02-15 08:41:52.994970"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Transports"], ["created_at", "2022-02-15 08:41:53.054905"], ["updated_at", "2022-02-15 08:41:53.054905"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Nourriture"], ["created_at", "2022-02-15 08:41:53.057924"], ["updated_at", "2022-02-15 08:41:53.057924"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Loisirs"], ["created_at", "2022-02-15 08:41:53.059815"], ["updated_at", "2022-02-15 08:41:53.059815"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Tech gears"], ["created_at", "2022-02-15 08:41:53.061688"], ["updated_at", "2022-02-15 08:41:53.061688"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Vetements"], ["created_at", "2022-02-15 08:41:53.063493"], ["updated_at", "2022-02-15 08:41:53.063493"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("title", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["title", "Beauté"], ["created_at", "2022-02-15 08:41:53.065329"], ["updated_at", "2022-02-15 08:41:53.065329"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.4ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "ends_at", "monthly", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["starts_at", "2022-01-01"], ["ends_at", "2022-01-31"], ["monthly", true], ["created_at", "2022-02-15 08:41:53.072430"], ["updated_at", "2022-02-15 08:41:53.072430"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mBudget Create (0.3ms)[0m  [1m[32mINSERT INTO "budgets" ("starts_at", "monthly", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["starts_at", "2022-02-01"], ["monthly", true], ["created_at", "2022-02-15 08:41:53.074723"], ["updated_at", "2022-02-15 08:41:53.074723"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "expenses" ("date", "title", "amount", "category_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["date", "2022-02-15"], ["title", "Essence"], ["amount", 50], ["category_id", 1], ["created_at", "2022-02-15 08:41:53.085496"], ["updated_at", "2022-02-15 08:41:53.085496"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mCategory Load (0.9ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mExpense Load (0.9ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:42:34 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:6
+  Rendered expenses/index.html.erb within layouts/application (Duration: 68.6ms | Allocations: 13174)
+  Rendered layout layouts/application.html.erb (Duration: 68.9ms | Allocations: 13242)
+Completed 500 Internal Server Error in 70ms (ActiveRecord: 17.9ms | Allocations: 13676)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `expenses' for #<ActionView::Base:0x00000000009d08>
+Did you mean?  expense
+               @expenses):
+    4: <p class='text-red-400 text-4xl'>Salut</p>
+    5: <p class='text-blue-400'>Salut</p>
+    6: <% @expenses.find_each do |expense| %>
+    7: <p class='text-blue-400'><%=expenses%></p>
+    8: <%end%>
+  
+app/views/expenses/index.html.erb:7
+app/views/expenses/index.html.erb:6
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:42:45 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:6
+  Rendered expenses/index.html.erb within layouts/application (Duration: 8.4ms | Allocations: 967)
+  Rendered layout layouts/application.html.erb (Duration: 23.6ms | Allocations: 9741)
+Completed 200 OK in 30ms (Views: 26.5ms | ActiveRecord: 1.1ms | Allocations: 10973)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:42:52 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:6
+  Rendered expenses/index.html.erb within layouts/application (Duration: 7.6ms | Allocations: 960)
+  Rendered layout layouts/application.html.erb (Duration: 23.7ms | Allocations: 9654)
+Completed 200 OK in 29ms (Views: 25.6ms | ActiveRecord: 1.1ms | Allocations: 10869)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:43:01 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.9ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:6
+  Rendered expenses/index.html.erb within layouts/application (Duration: 8.7ms | Allocations: 962)
+  Rendered layout layouts/application.html.erb (Duration: 28.2ms | Allocations: 9665)
+Completed 200 OK in 34ms (Views: 30.7ms | ActiveRecord: 0.9ms | Allocations: 10881)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:55:36 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 7.0ms | Allocations: 3490)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 42.6ms | Allocations: 7840)
+  Rendered layout layouts/application.html.erb (Duration: 42.8ms | Allocations: 7909)
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 14.8ms | Allocations: 9093)
+
+
+  
+ActionView::Template::Error (undefined method `label' for #<Expense id: 1, date: "2022-02-15", title: "Essence", amount: 50, category_id: 1, created_at: "2022-02-15 08:41:53.085496000 +0000", updated_at: "2022-02-15 08:41:53.085496000 +0000">):
+    1: <% content_tag :p, expense.label%>
+  
+app/views/expenses/_expense_card.html.erb:1
+app/views/expenses/index.html.erb:4
+app/views/expenses/index.html.erb:3
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:55:44 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.7ms | Allocations: 118)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.2ms | Allocations: 1237)
+  Rendered layout layouts/application.html.erb (Duration: 24.1ms | Allocations: 10007)
+Completed 200 OK in 32ms (Views: 27.9ms | ActiveRecord: 1.0ms | Allocations: 11227)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:55:54 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.9ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 1.0ms | Allocations: 120)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 11.4ms | Allocations: 1239)
+  Rendered layout layouts/application.html.erb (Duration: 25.2ms | Allocations: 9930)
+Completed 200 OK in 31ms (Views: 28.5ms | ActiveRecord: 0.9ms | Allocations: 11145)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:56:06 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.9ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.9ms | Allocations: 143)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 10.5ms | Allocations: 1262)
+  Rendered layout layouts/application.html.erb (Duration: 26.6ms | Allocations: 9953)
+Completed 200 OK in 33ms (Views: 30.1ms | ActiveRecord: 0.9ms | Allocations: 11168)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 09:56:12 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 1.1ms | Allocations: 142)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.4ms | Allocations: 1271)
+  Rendered layout layouts/application.html.erb (Duration: 22.4ms | Allocations: 9962)
+Completed 200 OK in 27ms (Views: 24.0ms | ActiveRecord: 1.0ms | Allocations: 11177)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:13:47 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:2
+  Rendered expenses/_expense_card.html.erb (Duration: 0.9ms | Allocations: 167)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 41.8ms | Allocations: 4512)
+  Rendered layout layouts/application.html.erb (Duration: 57.6ms | Allocations: 13282)
+Completed 200 OK in 62ms (Views: 60.6ms | ActiveRecord: 16.3ms | Allocations: 14496)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:14:19 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:2
+  Rendered expenses/_expense_card.html.erb (Duration: 1.1ms | Allocations: 159)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 10.2ms | Allocations: 1283)
+  Rendered layout layouts/application.html.erb (Duration: 24.4ms | Allocations: 10053)
+Completed 200 OK in 31ms (Views: 28.0ms | ActiveRecord: 1.0ms | Allocations: 11273)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:14:36 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.4ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:2
+  Rendered expenses/_expense_card.html.erb (Duration: 0.1ms | Allocations: 52)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 2.8ms | Allocations: 928)
+  Rendered layout layouts/application.html.erb (Duration: 12.2ms | Allocations: 9314)
+Completed 200 OK in 13ms (Views: 12.5ms | ActiveRecord: 0.4ms | Allocations: 9768)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:14:39 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.8ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:2
+  Rendered expenses/_expense_card.html.erb (Duration: 0.3ms | Allocations: 52)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 5.3ms | Allocations: 935)
+  Rendered layout layouts/application.html.erb (Duration: 22.1ms | Allocations: 9322)
+Completed 200 OK in 24ms (Views: 22.1ms | ActiveRecord: 0.8ms | Allocations: 9784)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:15:23 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.3ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:2
+  Rendered expenses/_expense_card.html.erb (Duration: 1.1ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 11.5ms | Allocations: 1332)
+  Rendered layout layouts/application.html.erb (Duration: 28.6ms | Allocations: 10023)
+Completed 200 OK in 34ms (Views: 31.0ms | ActiveRecord: 1.3ms | Allocations: 11237)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:15:59 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:2
+  Rendered expenses/_expense_card.html.erb (Duration: 1.1ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.8ms | Allocations: 1341)
+  Rendered layout layouts/application.html.erb (Duration: 24.0ms | Allocations: 10032)
+Completed 200 OK in 30ms (Views: 27.5ms | ActiveRecord: 1.0ms | Allocations: 11249)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:17:23 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.6ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.7ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.0ms | Allocations: 1354)
+  Rendered layout layouts/application.html.erb (Duration: 21.9ms | Allocations: 10126)
+Completed 200 OK in 33ms (Views: 25.1ms | ActiveRecord: 0.6ms | Allocations: 11347)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:19:34 +0100
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.6ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.2ms | Allocations: 202)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 17.8ms | Allocations: 5571)
+  Rendered layout layouts/application.html.erb (Duration: 30.9ms | Allocations: 23424)
+Completed 200 OK in 37ms (Views: 20.2ms | ActiveRecord: 11.9ms | Allocations: 27954)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:19:36 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.9ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.3ms | Allocations: 52)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 7.2ms | Allocations: 957)
+  Rendered layout layouts/application.html.erb (Duration: 22.5ms | Allocations: 9344)
+Completed 200 OK in 24ms (Views: 22.4ms | ActiveRecord: 0.9ms | Allocations: 9810)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:19:47 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.9ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.4ms | Allocations: 1353)
+  Rendered layout layouts/application.html.erb (Duration: 24.2ms | Allocations: 10045)
+Completed 200 OK in 28ms (Views: 26.0ms | ActiveRecord: 1.0ms | Allocations: 11272)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:20:45 +0100
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.7ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.5ms | Allocations: 202)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 21.5ms | Allocations: 5568)
+  Rendered layout layouts/application.html.erb (Duration: 34.5ms | Allocations: 23433)
+Completed 200 OK in 42ms (Views: 21.6ms | ActiveRecord: 14.2ms | Allocations: 27963)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:21:28 +0100
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.8ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.3ms | Allocations: 202)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 18.8ms | Allocations: 5568)
+  Rendered layout layouts/application.html.erb (Duration: 30.4ms | Allocations: 23424)
+Completed 200 OK in 36ms (Views: 18.5ms | ActiveRecord: 13.3ms | Allocations: 27954)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:21:30 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.6ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.2ms | Allocations: 52)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 4.7ms | Allocations: 957)
+  Rendered layout layouts/application.html.erb (Duration: 19.7ms | Allocations: 9345)
+Completed 200 OK in 21ms (Views: 19.9ms | ActiveRecord: 0.6ms | Allocations: 9811)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:26:05 +0100
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.1ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.4ms | Allocations: 202)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 18.7ms | Allocations: 5568)
+  Rendered layout layouts/application.html.erb (Duration: 32.2ms | Allocations: 23433)
+Completed 200 OK in 39ms (Views: 21.0ms | ActiveRecord: 12.6ms | Allocations: 27963)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:26:18 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.0ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.9ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.0ms | Allocations: 1357)
+  Rendered layout layouts/application.html.erb (Duration: 22.1ms | Allocations: 10049)
+Completed 200 OK in 28ms (Views: 24.7ms | ActiveRecord: 1.0ms | Allocations: 11278)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:26:26 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (1.2ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.8ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 9.1ms | Allocations: 1352)
+  Rendered layout layouts/application.html.erb (Duration: 21.6ms | Allocations: 10044)
+Completed 200 OK in 28ms (Views: 24.3ms | ActiveRecord: 1.2ms | Allocations: 11272)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:29:21 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.6ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 1.0ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 6.4ms | Allocations: 1352)
+  Rendered layout layouts/application.html.erb (Duration: 19.1ms | Allocations: 10047)
+Completed 200 OK in 24ms (Views: 21.7ms | ActiveRecord: 0.6ms | Allocations: 11275)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:30:54 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.6ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.5ms | Allocations: 158)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 4.9ms | Allocations: 1291)
+  Rendered layout layouts/application.html.erb (Duration: 16.4ms | Allocations: 10165)
+Completed 200 OK in 21ms (Views: 18.7ms | ActiveRecord: 0.6ms | Allocations: 11387)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:31:29 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.8ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 1.6ms | Allocations: 159)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 11.1ms | Allocations: 1294)
+  Rendered layout layouts/application.html.erb (Duration: 27.3ms | Allocations: 9988)
+Completed 200 OK in 33ms (Views: 30.2ms | ActiveRecord: 0.8ms | Allocations: 11216)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:31:41 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.5ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 0.7ms | Allocations: 159)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 6.7ms | Allocations: 1290)
+  Rendered layout layouts/application.html.erb (Duration: 21.0ms | Allocations: 10164)
+Completed 200 OK in 25ms (Views: 23.1ms | ActiveRecord: 0.5ms | Allocations: 11386)
+
+
+Started GET "/expenses" for 127.0.0.1 at 2022-02-15 10:32:39 +0100
+Processing by ExpensesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering expenses/index.html.erb within layouts/application
+  [1m[36mExpense Load (0.4ms)[0m  [1m[34mSELECT "expenses".* FROM "expenses" ORDER BY "expenses"."id" ASC LIMIT $1[0m  [["LIMIT", 1000]]
+  ↳ app/views/expenses/index.html.erb:3
+  Rendered expenses/_expense_card.html.erb (Duration: 1.1ms | Allocations: 159)
+  Rendered expenses/index.html.erb within layouts/application (Duration: 8.5ms | Allocations: 1288)
+  Rendered layout layouts/application.html.erb (Duration: 23.0ms | Allocations: 9981)
+Completed 200 OK in 28ms (Views: 26.5ms | ActiveRecord: 0.4ms | Allocations: 11196)
+
+
