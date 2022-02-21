@@ -1,0 +1,35 @@
+name: Tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: .ruby-version
+      - name: Setup node 15
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+      - name: Tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/app?encoding=utf8&pool=10"
+          RAILS_MASTER_KEY: "${{ secrets.RAILS_MASTER_KEY_TEST }}"
+        run: |
+          ./bin/setup
+          ./bin/rails test
