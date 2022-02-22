@@ -5,6 +5,7 @@ class CreateExpense < ActiveRecord::Migration[6.1]
       t.string :title
       t.integer :amount
       t.references :category, index: true, foreign_key: true
+      t.references :budget, index: true, foreign_key: true
       
       t.timestamps
     end

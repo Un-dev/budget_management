@@ -1,0 +1,6 @@
+<div class='flex flex-col space-y-3'>
+  <%= link_to "+", new_expense_path %>
+  <% @expenses.find_each do |expense| %>
+    <%= render 'shared/expense_card', expense: expense%>
+  <%end%>
+</div>

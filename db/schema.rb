@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(version: 2022_02_15_152413) do
     t.string "title"
     t.integer "amount"
     t.bigint "category_id"
+    t.bigint "budget_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["budget_id"], name: "index_expenses_on_budget_id"
     t.index ["category_id"], name: "index_expenses_on_category_id"
   end
 
@@ -55,5 +57,6 @@ ActiveRecord::Schema.define(version: 2022_02_15_152413) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "expenses", "budgets"
   add_foreign_key "expenses", "categories"
 end

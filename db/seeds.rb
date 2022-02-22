@@ -15,9 +15,11 @@ Category.create(title: 'Beauté', hex_color: '#F27EB8')
 Category.create(title: 'Salaire', hex_color: '#96DBE3', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>')
 
 Budget.create(starts_at: '01-01-2022', ends_at: '31-01-2022', monthly: true)
-Budget.create(starts_at: '01-02-2022', ends_at: '31-02-2022', monthly: true)
+Budget.create(starts_at: '01-02-2022', ends_at: '28-02-2022', monthly: true)
 
-Expense.create(date: DateTime.now, title: 'Essence', amount: -30, category: Category.first)
-Expense.create(date: DateTime.now, title: 'Macdo', amount: -10, category: Category.second)
-Expense.create(date: DateTime.now, title: 'Escape Game', amount: -20, category: Category.find_by(title: 'Loisirs'))
-Expense.create(date: DateTime.now, title: 'Salaire', amount: 1200, category: Category.last)
+Expense.create(date: DateTime.now, title: 'Essence', amount: -30, category: Category.first, budget: Budget.second)
+Expense.create(date: DateTime.now, title: 'Macdo', amount: -10, category: Category.second, budget: Budget.second)
+Expense.create(date: DateTime.now, title: 'Escape Game', amount: -20, category: Category.find_by(title: 'Loisirs'), budget: Budget.first)
+Expense.create(date: DateTime.now, title: 'Salaire', amount: 1200, category: Category.last, budget: Budget.first)
+
+User.create(email: "toto@toto.com", password: "tototo")
