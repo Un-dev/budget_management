@@ -4,5 +4,10 @@ Rails.application.routes.draw do
   root to: redirect('/budgets')
 
   resources :expenses
-  resources :budgets
+  resources :budgets do
+    collection do
+      get :next, to: 'budgets#next'
+      get :previous, to: 'budgets#previous'
+    end
+  end
 end

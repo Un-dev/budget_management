@@ -16,10 +16,13 @@ Category.create(title: 'Salaire', hex_color: '#96DBE3', icon: '<svg xmlns="http:
 
 Budget.create(starts_at: '01-01-2022', ends_at: '31-01-2022', monthly: true)
 Budget.create(starts_at: '01-02-2022', ends_at: '28-02-2022', monthly: true)
+Budget.create(starts_at: '01-03-2022', ends_at: '31-03-2022', monthly: true)
 
 Expense.create(date: DateTime.now, title: 'Essence', amount: -30, category: Category.first, budget: Budget.second)
 Expense.create(date: DateTime.now, title: 'Macdo', amount: -10, category: Category.second, budget: Budget.second)
 Expense.create(date: DateTime.now, title: 'Escape Game', amount: -20, category: Category.find_by(title: 'Loisirs'), budget: Budget.first)
 Expense.create(date: DateTime.now, title: 'Salaire', amount: 1200, category: Category.last, budget: Budget.first)
+Expense.create(date: DateTime.now, title: 'Cinéma', amount: -20, category: Category.find_by(title: 'Loisirs'), budget: Budget.third)
+Expense.create(date: DateTime.now, title: 'Salaire', amount: 1200, category: Category.last, budget: Budget.third)
 
 User.create(email: "toto@toto.com", password: "tototo")
