@@ -1,14 +1,15 @@
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   config.after_initialize do
-    Bullet.enable        = true
-    Bullet.alert         = true
+    Bullet.enable = true
+    Bullet.alert = false
     Bullet.bullet_logger = true
-    Bullet.console       = true
-  # Bullet.growl         = true
-    Bullet.rails_logger  = true
-    Bullet.add_footer    = true
+    Bullet.console = true
+
+    # Bullet.growl         = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -32,7 +33,7 @@ Rails.application.configure do
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = false
