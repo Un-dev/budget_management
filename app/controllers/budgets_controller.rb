@@ -5,7 +5,7 @@ class BudgetsController < ApplicationController
     else
       @current_budget = Budget.find(params[:budget_id])
     end
-    @expenses = @current_budget.expenses.all
+    @expenses = @current_budget.expenses.includes(:category).all
   end
 
   def next
