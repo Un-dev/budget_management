@@ -8,6 +8,8 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "^5.4.3",
     "autoprefixer": "^10.4.0",
+    "chart.js": "^3.7.1",
+    "chartkick": "^4.1.1",
     "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.2",
