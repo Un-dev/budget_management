@@ -1,24 +1,31 @@
-# README
+# Master project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple budget app developped in ruby on rails. It is primarly aimed as a final project for my master degree. It will just be a webapp in the first place but i could consider wrapping it in a React-Native Skeleton and deploy it on google store (not ios cuz I dont want).
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+### todo : Docker Hub CI
 
-* System dependencies
+### For developpers
 
-* Configuration
+You will need `Node 16.11.0`, `ruby 3.0.0p0`, `rails 6.1.4.4`, `postgres 14.1`
 
-* Database creation
+on the first start :
 
-* Database initialization
+```
+$ yarn
+$ bundle
+$ rails db:create
+$ rails db:migrate
 
-* How to run the test suite
+# this one is for loading fake data
+$ rails db:seed
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+then you will just need
 
-* Deployment instructions
+```
+> rails s
+```
 
-* ...
+to run the server
