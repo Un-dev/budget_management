@@ -25,7 +25,7 @@ $ rails db:seed
 then you will just need
 
 ```
-> rails s
+$ rails s
 ```
 
 to run the server
