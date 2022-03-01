@@ -8,5 +8,5 @@
   <% @expenses.find_each do |expense| %>
     <%= render 'shared/expense_card', expense: expense%>
   <%end%>
-  <%= pie_chart Expense.group(:category).count %>
+  <%= pie_chart @expenses.joins(:category).group('categories.title').count, donut: true %>
 </div>
