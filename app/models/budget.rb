@@ -12,14 +12,12 @@ class Budget < ApplicationRecord
     find_by(starts_at: Date.current.beginning_of_month, monthly: true)
   end
 
-  def self.next(id)
-    budget = find(id)
-
+  def self.next(budget)
     where('starts_at > ?', budget.starts_at).order(:starts_at).first || budget
   end
 
-  def self.previous(id)
-    budget = find(id)
-    where('starts_at < ?', budget.starts_at).order(:starts_at).first || budget
+  def self.previous(budget)
+    where('starts_at < ?', budget.starts_at).order(starts_at: :desc).first ||
+      budget
   end
 end

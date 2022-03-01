@@ -1,8 +1,8 @@
 <div class='flex flex-col space-y-3 text-white'>
   <div class= 'flex flex-row space-around w-60 text-2xl'>
-    <%= link_to "<", previous_budgets_path(budget_id: @current_budget.id) %>
+    <%= link_to "<", budgets_path(budget_id: Budget.previous(@current_budget).id) %>
     <%= content_tag :p, @current_budget.month_label, class: 'w-3/4 text-center' %>
-    <%= link_to ">", next_budgets_path(budget_id: @current_budget.id) %>
+    <%= link_to ">", budgets_path(budget_id: Budget.next(@current_budget).id) %>
   </div>
   <%= link_to "+", new_expense_path %>
   <% @expenses.find_each do |expense| %>
