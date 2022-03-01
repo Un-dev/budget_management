@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2022_02_15_152413) do
     t.date "date"
     t.string "title"
     t.integer "amount"
+    t.boolean "is_income", default: false
     t.bigint "category_id"
     t.bigint "budget_id"
     t.datetime "created_at", precision: 6, null: false
