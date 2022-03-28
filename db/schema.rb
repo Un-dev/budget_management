@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
   create_table "accounts", force: :cascade do |t|
     t.float "assets"
     t.bigint "user_id"
+    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_accounts_on_category_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -27,16 +29,21 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.date "starts_at"
     t.date "ends_at"
     t.boolean "monthly"
+    t.float "target_amount"
+    t.bigint "user_id"
+    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_budgets_on_category_id"
+    t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "icon", default: "<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\" /></svg>"
     t.string "hex_color", default: "#ffffff"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -68,6 +75,7 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "categories"
   add_foreign_key "accounts", "users"
   add_foreign_key "expenses", "accounts"
   add_foreign_key "expenses", "budgets"
