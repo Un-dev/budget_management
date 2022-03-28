@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_152413) do
+ActiveRecord::Schema.define(version: 2022_03_28_075339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.float "assets"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
 
   create_table "budgets", force: :cascade do |t|
     t.date "starts_at"
@@ -34,12 +42,14 @@ ActiveRecord::Schema.define(version: 2022_02_15_152413) do
   create_table "expenses", force: :cascade do |t|
     t.date "date"
     t.string "title"
-    t.integer "amount"
+    t.float "amount"
     t.boolean "is_income", default: false
     t.bigint "category_id"
     t.bigint "budget_id"
+    t.bigint "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_expenses_on_account_id"
     t.index ["budget_id"], name: "index_expenses_on_budget_id"
     t.index ["category_id"], name: "index_expenses_on_category_id"
   end
@@ -58,6 +68,8 @@ ActiveRecord::Schema.define(version: 2022_02_15_152413) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
+  add_foreign_key "expenses", "accounts"
   add_foreign_key "expenses", "budgets"
   add_foreign_key "expenses", "categories"
 end

@@ -29,3 +29,7 @@ $ rails s
 ```
 
 to run the server
+
+below is the db schema :
+
+![alt text](https://github.com/Un-dev/budget_management/blob/main/db_schema.png)

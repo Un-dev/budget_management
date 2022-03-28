@@ -1,18 +1,9 @@
-<div class='flex flex-col space-y-3 text-white w-full'>
-  <div class= 'flex flex-row justify-around w-60 text-2xl self-center'>
-    <%= link_to "<", budgets_path(budget_id: Budget.previous(@current_budget).id) %>
-    <%= content_tag :p, @current_budget.month_label, class: 'w-3/4 text-center' %>
-    <%= link_to ">", budgets_path(budget_id: Budget.next(@current_budget).id) %>
+<div class="flex flex-col w-full h-full">
+  <div class="flex h-1/5 w-full items-center justify-center" style="background-color: #D2EAA2;">
+  toto
   </div>
-  <div class="flex flex-row w-full h-full justify-around">
-    <div class="flex flex-col ">
-      <%= link_to "+", new_expense_path %>
-      <% @expenses.find_each do |expense| %>
-        <%= render 'shared/expense_card', expense: expense%>
-      <%end%>
-    </div>
-    <div class="flex">
-      <%= pie_chart @expenses.where(is_income: false).joins(:category).group('categories.title').sum(:amount), donut: true, width: "250px", height: "250px" %>
-    </div>
+  <div class="flex h-4/5 w-full items-center justify-center">
+  dsqdq
   </div>
+
 </div>
