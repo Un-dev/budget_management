@@ -1,13 +1,26 @@
 <div class="flex flex-col w-full h-full">
   <div class="flex flex-col h-2/6 w-full items-center justify-center space-y-5" style="background-color: #D2EAA2;">
 
-    <%= content_tag :p, "Bonjour, #{current_user.surname}", class: 'text-gray-500 text-xl font-semibold' %>
-    <%= content_tag :p, "La valeur de vos avoirs et de", class: 'text-gray-500 text-sm' %>
+    <%= content_tag :p, "Bonjour, #{current_user.surname}", class: 'text-gray-600 text-xl font-semibold' %>
+    <%= content_tag :p, "La valeur de vos avoirs et de", class: 'text-gray-600 text-sm' %>
     <hr style="width:50%;border-color: #9ca3af;text-align:left;margin-left:0">
     <%= content_tag :p, "#{current_user.total_assets} €", class: 'text-white text-5xl font-semibold' %>
   </div>
-  <div class="flex h-4/6 w-full items-center justify-center">
-
+  <div class="flex flex-col h-4/6 w-full">
+    <div class="flex flex-col space-y-3 bg-gray-100 h-56 w-full py-3 pl-3">
+      <%= content_tag :h2, 'Vos comptes', class: 'font-semibold text-xl text-gray-600' %>
+      <div class='whitespace-nowrap overflow-x-scroll overflow-y-hidden w-full h-full'>
+        <% current_user.accounts.find_each do |account| %>
+          <%= render 'shared/account_card', account: account %>
+        <% end %>
+      </div>
+    </div>
+    <div class='p-3'>
+      <%= content_tag :h2, 'Dépenses récentes', class: 'font-semibold text-xl text-gray-600' %>
+      <% current_user.expenses.includes(:category).last(10).each do |expense| %>
+          <%= render 'shared/expense_card', expense: expense %>
+        <% end %>
+    </div>
   </div>
 
 </div>

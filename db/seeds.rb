@@ -43,64 +43,6 @@ Budget.create(starts_at: '01-01-2022', ends_at: '31-01-2022', monthly: true)
 Budget.create(starts_at: '01-02-2022', ends_at: '28-02-2022', monthly: true)
 Budget.create(starts_at: '01-03-2022', ends_at: '31-03-2022', monthly: true)
 
-Expense.create(
-  date: DateTime.now,
-  title: 'Essence',
-  amount: 30,
-  category: Category.first,
-  budget: Budget.second,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Macdo',
-  amount: 10,
-  category: Category.second,
-  budget: Budget.second,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Escape Game',
-  amount: 20,
-  category: Category.find_by(title: 'Loisirs'),
-  budget: Budget.first,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Salaire',
-  amount: 1200,
-  category: Category.last,
-  budget: Budget.first,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Cinéma',
-  amount: 10,
-  category: Category.find_by(title: 'Loisirs'),
-  budget: Budget.third,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Théâtre',
-  amount: 15,
-  category: Category.find_by(title: 'Loisirs'),
-  budget: Budget.third,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Salaire',
-  is_income: true,
-  amount: 1200,
-  category: Category.last,
-  budget: Budget.third,
-)
-Expense.create(
-  date: DateTime.now,
-  title: 'Macdo',
-  amount: 10,
-  category: Category.second,
-  budget: Budget.third,
-)
-
 user =
   User.create(
     email: 'toto@toto.com',
@@ -109,4 +51,72 @@ user =
     surname: 'toto',
   )
 
-Account.create(user: user, assets: 1200)
+Account.create(user: user, assets: 500, title: 'Principal')
+Account.create(user: user, assets: 2300, title: 'Livret A')
+Account.create(user: user, assets: 6000, title: 'Plan épargne logement')
+
+Expense.create(
+  date: DateTime.now,
+  title: 'Essence',
+  amount: 30,
+  category: Category.first,
+  budget: Budget.second,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Macdo',
+  amount: 10,
+  category: Category.second,
+  budget: Budget.second,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Escape Game',
+  amount: 20,
+  category: Category.find_by(title: 'Loisirs'),
+  budget: Budget.first,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Salaire',
+  amount: 1200,
+  category: Category.last,
+  budget: Budget.first,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Cinéma',
+  amount: 10,
+  category: Category.find_by(title: 'Loisirs'),
+  budget: Budget.third,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Théâtre',
+  amount: 15,
+  category: Category.find_by(title: 'Loisirs'),
+  budget: Budget.third,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Salaire',
+  is_income: true,
+  amount: 1200,
+  category: Category.last,
+  budget: Budget.third,
+  account: user.accounts.first,
+)
+Expense.create(
+  date: DateTime.now,
+  title: 'Macdo',
+  amount: 10,
+  category: Category.second,
+  budget: Budget.third,
+  account: user.accounts.first,
+)

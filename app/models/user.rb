@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :validatable
 
   has_many :accounts
+  has_many :budgets
+  has_many :expenses, through: :accounts
 
   def total_assets
     accounts.sum(:assets)
