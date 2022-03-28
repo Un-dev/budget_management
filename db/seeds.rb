@@ -101,4 +101,12 @@ Expense.create(
   budget: Budget.third,
 )
 
-User.create(email: 'toto@toto.com', password: 'tototo')
+user =
+  User.create(
+    email: 'toto@toto.com',
+    password: 'tototo',
+    name: 'titi',
+    surname: 'toto',
+  )
+
+Account.create(user: user, assets: 1200)

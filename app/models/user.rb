@@ -10,6 +10,6 @@ class User < ApplicationRecord
   has_many :accounts
 
   def total_assets
-    User.accounts.sum(:assets)
+    accounts.sum(:assets)
   end
 end
