@@ -19,10 +19,8 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.string "title"
     t.float "assets"
     t.bigint "user_id"
-    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_accounts_on_category_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -51,7 +49,6 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.date "date"
     t.string "title"
     t.float "amount"
-    t.boolean "is_income", default: false
     t.bigint "category_id"
     t.bigint "budget_id"
     t.bigint "account_id"
@@ -76,7 +73,6 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "accounts", "categories"
   add_foreign_key "accounts", "users"
   add_foreign_key "expenses", "accounts"
   add_foreign_key "expenses", "budgets"
