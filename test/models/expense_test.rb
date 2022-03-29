@@ -6,15 +6,19 @@ class ExpenseTest < ActiveSupport::TestCase
     assert_equal 3500, account.assets
     expense =
       Expense.create(
-        amount: 10,
+        amount: -10,
         category: Category.first,
         budget: Budget.first,
         account: account,
       )
     assert_equal 3490, account.assets
-    expense.update(amount: 20)
+    expense.update(amount: -20)
     assert_equal 3480, account.assets
-    expense.update(amount: 5)
+    expense.update(amount: -5)
     assert_equal 3495, account.assets
+    expense.update(amount: 20)
+    assert_equal 3520, account.assets
+    expense.update(amount: 15)
+    assert_equal 3515, account.assets
   end
 end

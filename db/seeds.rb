@@ -98,7 +98,7 @@ Expense.create(
 Expense.create(
   date: DateTime.now,
   title: 'Théâtre',
-  amount: 15,
+  amount: -15,
   category: Category.find_by(title: 'Loisirs'),
   budget: Budget.third,
   account: user.accounts.first,
@@ -106,7 +106,6 @@ Expense.create(
 Expense.create(
   date: DateTime.now,
   title: 'Salaire',
-  is_income: true,
   amount: 1200,
   category: Category.last,
   budget: Budget.third,
@@ -115,7 +114,7 @@ Expense.create(
 Expense.create(
   date: DateTime.now,
   title: 'Macdo',
-  amount: 10,
+  amount: -10,
   category: Category.second,
   budget: Budget.third,
   account: user.accounts.first,

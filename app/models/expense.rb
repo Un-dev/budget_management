@@ -7,20 +7,12 @@ class Expense < ApplicationRecord
   before_update :update_account_on_update
 
   def update_account_on_create
-    if is_income
-      new_assets = account.assets + amount
-    else
-      new_assets = account.assets - amount
-    end
+    new_assets = account.assets + amount
     account.update_attribute(:assets, new_assets)
   end
 
   def update_account_on_update
-    if is_income
-      new_assets = account.assets + (self.amount - amount_was)
-    else
-      new_assets = account.assets - (self.amount - amount_was)
-    end
+    new_assets = account.assets + (self.amount - amount_was)
     account.update_attribute(:assets, new_assets)
   end
 end

@@ -1,7 +1,7 @@
 expense_one:
   date: <%= 4.day.ago.to_s(:db) %>
   title: Lait
-  amount: 2
+  amount: -2
   category: category_one
   budget: budget_one
   account: account_one
@@ -9,7 +9,7 @@ expense_one:
 expense_two:
   date: <%= 5.day.ago.to_s(:db) %>
   title: Bonbons
-  amount: 2
+  amount: -2
   category: category_one
   budget: budget_one
   account: account_one
