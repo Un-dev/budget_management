@@ -1,0 +1,11 @@
+one:
+  title: Principale
+  assets: 3500
+  category_id: category_one
+  user: user_one
+
+two:
+  title: Livret A
+  assets: 2500
+  category_id: category_one
+  user: user_one
