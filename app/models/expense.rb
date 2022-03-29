@@ -1,6 +1,6 @@
 class Expense < ApplicationRecord
-  belongs_to :budget
   belongs_to :category
+  belongs_to :budget
   belongs_to :account
 
   after_create :update_account_on_create

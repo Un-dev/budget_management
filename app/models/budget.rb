@@ -1,5 +1,8 @@
 class Budget < ApplicationRecord
   has_many :expenses
+  belongs_to :category
+  belongs_to :user
+
   def month_label
     starts_at.strftime('%B %Y')
   end
