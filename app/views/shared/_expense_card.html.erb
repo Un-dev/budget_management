@@ -1,11 +1,13 @@
-<div class='flex flex-row p-4 w-full items-center'>
+<div class='flex flex-row p-4 w-full items-center space-x-4'>
   <div style="background-color: <%= expense.category.hex_color%>" class="flex items-center justify-center rounded-xl h-12 w-12 text-white">
     <%= expense.category.icon.html_safe %>
   </div>
-  <div class='flex flex-col'>
-    <%= content_tag :p, expense.title, class: 'font-semibold' %>
-  </div>
-  <div class='jump-end'>
-    <%= content_tag :p, expense.amount, class: 'font-semibold' %>
+  <div class='flex flex-row sm:w-full w-5/6 justify-between items-center'>
+    <div class="flex flex-col">
+      <%= content_tag :p, expense.title, class: 'font-semibold' %>
+      <%= content_tag :p, expense.date, class: 'text-sm text-gray-500' %>
+    </div>
+    <%= expense.to_html %>
   </div>
 </div>
+<hr style="width:100%;border-color: #e3e3e3;text-align:left;margin-left:0">

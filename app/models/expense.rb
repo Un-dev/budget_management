@@ -15,4 +15,14 @@ class Expense < ApplicationRecord
     new_assets = account.assets + (self.amount - amount_was)
     account.update_attribute(:assets, new_assets)
   end
+
+  def to_html
+    res = ''
+    if amount < 0
+      res = "<p class='font-semibold'>#{amount}€</p>"
+    else
+      res = "<p class='text-green-400 font-semibold'>+#{amount}€</p>"
+    end
+    res.html_safe
+  end
 end

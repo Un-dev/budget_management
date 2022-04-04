@@ -67,6 +67,13 @@ Budget.create!(
   monthly: true,
   category: Category.second,
 )
+Budget.create!(
+  user: user,
+  starts_at: Time.month_begins_at,
+  ends_at: Time.month_ends_at,
+  monthly: true,
+  category: Category.second,
+)
 
 Account.create!(user: user, assets: 500, title: 'Principal')
 Account.create!(user: user, assets: 2300, title: 'Livret A')
