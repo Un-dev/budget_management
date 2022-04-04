@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
   create_table "accounts", force: :cascade do |t|
     t.string "title"
     t.float "assets"
+    t.boolean "main_account", default: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -50,12 +51,10 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.string "title"
     t.float "amount"
     t.bigint "category_id"
-    t.bigint "budget_id"
     t.bigint "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_expenses_on_account_id"
-    t.index ["budget_id"], name: "index_expenses_on_budget_id"
     t.index ["category_id"], name: "index_expenses_on_category_id"
   end
 
@@ -75,6 +74,5 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "expenses", "accounts"
-  add_foreign_key "expenses", "budgets"
   add_foreign_key "expenses", "categories"
 end

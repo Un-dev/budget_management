@@ -69,8 +69,8 @@ Budget.create!(
 )
 Budget.create!(
   user: user,
-  starts_at: Time.month_begins_at,
-  ends_at: Time.month_ends_at,
+  starts_at: Time.now.at_beginning_of_month,
+  ends_at: Time.now.at_end_of_month,
   monthly: true,
   category: Category.second,
 )
@@ -83,7 +83,6 @@ Expense.create!(
   title: 'Essence',
   amount: -30,
   category: Category.first,
-  budget: Budget.second,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -91,7 +90,6 @@ Expense.create!(
   title: 'Macdo',
   amount: -10,
   category: Category.second,
-  budget: Budget.second,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -99,7 +97,6 @@ Expense.create!(
   title: 'Escape Game',
   amount: -20,
   category: Category.find_by(title: 'Loisirs'),
-  budget: Budget.first,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -107,7 +104,6 @@ Expense.create!(
   title: 'Salaire',
   amount: 1200,
   category: Category.last,
-  budget: Budget.first,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -115,7 +111,6 @@ Expense.create!(
   title: 'Cinéma',
   amount: -10,
   category: Category.find_by(title: 'Loisirs'),
-  budget: Budget.third,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -123,7 +118,6 @@ Expense.create!(
   title: 'Théâtre',
   amount: -15,
   category: Category.find_by(title: 'Loisirs'),
-  budget: Budget.third,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -131,7 +125,6 @@ Expense.create!(
   title: 'Salaire',
   amount: 1200,
   category: Category.last,
-  budget: Budget.third,
   account: user.accounts.first,
 )
 Expense.create!(
@@ -139,6 +132,5 @@ Expense.create!(
   title: 'Macdo',
   amount: -10,
   category: Category.second,
-  budget: Budget.third,
   account: user.accounts.first,
 )
