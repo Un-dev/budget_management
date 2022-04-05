@@ -1,7 +1,9 @@
-class AccountsController < ApplicationController
+class TransfersController < ApplicationController
   before_action :find_transfer, except: %i[index new create]
 
-  def new; end
+  def new
+    @transfer = Transfer.new
+  end
 
   def create
     @transfer = Transfer.new(transfer_params)
@@ -17,6 +19,10 @@ class AccountsController < ApplicationController
   end
 
   def update; end
+
+  def find_transfer
+    @transfer = Transfer.find(params[:id])
+  end
 
   def transfer_params
     params
