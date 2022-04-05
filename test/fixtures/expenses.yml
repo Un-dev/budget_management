@@ -3,7 +3,6 @@ expense_one:
   title: Lait
   amount: -2
   category: category_one
-  budget: budget_one
   account: account_one
 
 expense_two:
@@ -11,5 +10,4 @@ expense_two:
   title: Bonbons
   amount: -2
   category: category_one
-  budget: budget_one
   account: account_one

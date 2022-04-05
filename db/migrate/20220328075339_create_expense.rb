@@ -1,7 +1,7 @@
 class CreateExpense < ActiveRecord::Migration[6.1]
   def change
     create_table :expenses do |t|
-      t.date :date
+      t.datetime :date
       t.string :title
       t.float :amount
       t.references :category, index: true, foreign_key: true

@@ -1,3 +1,5 @@
+[![Ruby](https://badgen.net/badge/icon/ruby?icon=ruby&label)](https://https://ruby-lang.org/)
+
 # Master project
 
 This is a simple budget app developped in ruby on rails. It is primarly aimed as a final project for my master degree. It will just be a webapp in the first place but i could consider wrapping it in a React-Native Skeleton and deploy it on google store (not ios cuz I dont want).

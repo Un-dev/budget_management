@@ -5,12 +5,7 @@ class ExpenseTest < ActiveSupport::TestCase
     account = Account.find_by(title: 'Principal')
     assert_equal 3500, account.assets
     expense =
-      Expense.create(
-        amount: -10,
-        category: Category.first,
-        budget: Budget.first,
-        account: account,
-      )
+      Expense.create(amount: -10, category: Category.first, account: account)
     assert_equal 3490, account.assets
     expense.update(amount: -20)
     assert_equal 3480, account.assets

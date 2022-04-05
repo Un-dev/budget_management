@@ -1,4 +1,5 @@
 <%= form_with(model: expense, local: true, class: 'flex flex-col w-full h-full') do |f| %>
+  <% f.object.date = @expense.date || DateTime.now %>
   <%= render "shared/form_errors", form: f %>
   <div class="flex flex-col p-4 space-y-3">
     <fieldset class='flex flex-col'>
