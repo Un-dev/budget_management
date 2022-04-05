@@ -6,13 +6,13 @@ class Expense < ApplicationRecord
   before_update :update_account_on_update
 
   def update_account_on_create
-    new_assets = account.assets + amount
-    account.update_attribute(:assets, new_assets)
+    new_balance = account.balance + amount
+    account.update_attribute(:balance, new_balance)
   end
 
   def update_account_on_update
-    new_assets = account.assets + (self.amount - amount_was)
-    account.update_attribute(:assets, new_assets)
+    new_balance = account.balance + (self.amount - amount_was)
+    account.update_attribute(:balance, new_balance)
   end
 
   def to_html

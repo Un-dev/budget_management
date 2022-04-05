@@ -1,9 +1,9 @@
 account_one:
   title: Principal
-  assets: 3500
+  balance: 3500
   user: user_one
 
 account_two:
   title: Livret A
-  assets: 2500
+  balance: 2500
   user: user_one

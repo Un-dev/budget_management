@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2022_04_05_090736) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "title"
-    t.float "assets"
+    t.float "balance"
     t.boolean "main_account", default: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false

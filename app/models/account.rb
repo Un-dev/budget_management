@@ -3,9 +3,9 @@ class Account < ApplicationRecord
   has_many :expenses
 
   def transfer(receiver_account, amount)
-    self.assets -= amount
+    self.balance -= amount
     self.save
-    receiver_account.assets += amount
+    receiver_account.balance += amount
     receiver_account.save
   end
 end

@@ -6,8 +6,8 @@ class UserTest < ActiveSupport::TestCase
   # end
   setup { @user = User.find_by(surname: 'toto') }
 
-  test '#total_assets' do
+  test '#total_balance' do
     assert_equal 2, @user.accounts.count
-    assert_equal 6000, @user.total_assets
+    assert_equal 6000, @user.total_balance
   end
 end

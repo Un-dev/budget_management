@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :budgets
   has_many :expenses, through: :accounts
 
-  def total_assets
-    accounts.sum(:assets)
+  def total_balance
+    accounts.sum(:balance)
   end
 end

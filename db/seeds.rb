@@ -75,9 +75,9 @@ Budget.create!(
   category: Category.second,
 )
 
-Account.create!(user: user, assets: 500, title: 'Principal')
-Account.create!(user: user, assets: 2300, title: 'Livret A')
-Account.create!(user: user, assets: 6000, title: 'Plan épargne logement')
+Account.create!(user: user, balance: 500, title: 'Principal')
+Account.create!(user: user, balance: 2300, title: 'Livret A')
+Account.create!(user: user, balance: 6000, title: 'Plan épargne logement')
 Expense.create!(
   date: DateTime.now,
   title: 'Essence',
