@@ -15,5 +15,7 @@ class ExpenseTest < ActiveSupport::TestCase
     assert_equal 3520, account.assets
     expense.update(amount: 15)
     assert_equal 3515, account.assets
+    expense.destroy
+    assert_equal 3500, account.assets
   end
 end

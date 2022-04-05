@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_28_075339) do
+ActiveRecord::Schema.define(version: 2022_04_05_090736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,17 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
     t.index ["category_id"], name: "index_expenses_on_category_id"
   end
 
+  create_table "transfers", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "from_account_id"
+    t.bigint "to_account_id"
+    t.float "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["from_account_id"], name: "index_transfers_on_from_account_id"
+    t.index ["to_account_id"], name: "index_transfers_on_to_account_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -75,4 +86,6 @@ ActiveRecord::Schema.define(version: 2022_03_28_075339) do
   add_foreign_key "accounts", "users"
   add_foreign_key "expenses", "accounts"
   add_foreign_key "expenses", "categories"
+  add_foreign_key "transfers", "accounts", column: "from_account_id"
+  add_foreign_key "transfers", "accounts", column: "to_account_id"
 end

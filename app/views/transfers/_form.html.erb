@@ -1,0 +1,24 @@
+<%= form_with(model: transfer, local: true, class: 'flex flex-col w-full h-full') do |f| %>
+  <% f.object.date = @expense.date || DateTime.now %>
+
+  <div class="flex flex-col p-4 space-y-3">
+
+    <fieldset class='flex flex-col'>
+      <%= f.label :from_account, class: 'font-semibold' %>
+      <%= f.collection_select :from_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3' %>
+    </fieldset>
+    <fieldset class='flex flex-col'>
+      <%= f.label :to_account, class: 'font-semibold' %>
+      <%= f.collection_select :to_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3' %>
+    </fieldset>
+    <fieldset class='flex flex-col'>
+      <%= f.label :amount, class: 'font-semibold' %>
+      <%= f.number_field :amount, class: 'rounded border-gray-400' %>
+    </fieldset>
+    <fieldset class='flex flex-col'>
+      <%= f.label :date, class: 'font-semibold' %>
+      <%= f.datetime_field :date, class: 'rounded border-gray-400 w-full' %>
+    </fieldset>
+    <%= f.submit %>
+  </div>
+<% end %>

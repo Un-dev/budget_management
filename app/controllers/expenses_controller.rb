@@ -17,7 +17,9 @@ class ExpensesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @expense.update(expense_params)
+  end
 
   def find_expense
     @expense = Expense.includes(:budget).find(params[:id])

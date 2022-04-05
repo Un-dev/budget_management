@@ -6,12 +6,7 @@ Rails.application.routes.draw do
 
   get '/home', to: 'users#index'
 
-  resources :accounts do
-    collection do
-      get :transfer, to: 'accounts#transfer'
-      post :transfer, to: 'accounts#execute_transfer'
-    end
-  end
+  resources :transfers
   resources :expenses
   resources :budgets do
     collection do
