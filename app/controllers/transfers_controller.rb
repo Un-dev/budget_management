@@ -1,6 +1,9 @@
 class TransfersController < ApplicationController
   before_action :find_transfer, except: %i[index new create]
 
+  def index
+    redirect_to :home
+  end
   def new
     @transfer = Transfer.new
   end

@@ -4,15 +4,15 @@
   <div class="flex flex-col p-4 space-y-3">
     <fieldset class='flex flex-col'>
       <%= f.label :from_account, class: 'font-semibold' %>
-      <%= f.collection_select :from_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3' %>
+      <%= f.collection_select :from_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3 w-full' %>
     </fieldset>
     <fieldset class='flex flex-col'>
       <%= f.label :to_account, class: 'font-semibold' %>
-      <%= f.collection_select :to_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3' %>
+      <%= f.collection_select :to_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3 w-full' %>
     </fieldset>
     <fieldset class='flex flex-col'>
       <%= f.label :amount, class: 'font-semibold' %>
-      <%= f.number_field :amount, min: 0, class: 'rounded border-gray-400' %>
+      <%= f.number_field :amount, {min: 0, class: 'rounded border-gray-400 w-full'} %>
     </fieldset>
     <fieldset class='flex flex-col'>
       <%= f.label :date, class: 'font-semibold' %>
