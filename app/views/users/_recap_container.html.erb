@@ -1,0 +1,20 @@
+<div class="relative flex flex-col h-2/6 w-full items-center justify-center space-y-5" style="background-color: #C1E692;">
+    <%= content_tag :p, "Bonjour, #{current_user.surname}", class: 'text-gray-600 text-xl font-semibold' %>
+    <%= content_tag :p, "La valeur totale de vos avoirs est de", class: 'text-gray-600 text-sm' %>
+    <hr style="width:50%;border-color: #9ca3af;text-align:left;margin-left:0">
+    <%= content_tag :p, "#{current_user.total_balance}€", class: 'text-white text-5xl font-semibold', style: '-webkit-text-stroke: 0.15px darkgray;' %>
+    <%= link_to new_transfer_path, class:'absolute', style:'bottom: -7%;' do %>
+      <div class='flex items-center justify-center rounded-3xl bg-stone-400 h-10 w-10'>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+      </div>
+    <% end %>
+    <%= link_to destroy_user_session_path, method: :delete do %>
+      <div class='absolute top-5 right-5'>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+      </div>
+    <% end %>
+  </div>
