@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - name: Tests
+      - name: Unit Tests
         env:
           RAILS_ENV: test
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/app?encoding=utf8&pool=10"
@@ -33,3 +33,11 @@ jobs:
         run: |
           ./bin/setup
           ./bin/rails test
+      - name: System Tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/app?encoding=utf8&pool=10"
+          RAILS_MASTER_KEY: "${{ secrets.RAILS_MASTER_KEY_TEST }}"
+        run: |
+          ./bin/setup
+          ./bin/rails test:system
