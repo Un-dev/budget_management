@@ -50,6 +50,7 @@ Budget.create!(
   user: user,
   starts_at: '01-01-2022',
   ends_at: '31-01-2022',
+  target_amount: 25,
   monthly: true,
   category: Category.first,
 )
@@ -57,6 +58,7 @@ Budget.create!(
   user: user,
   starts_at: '01-02-2022',
   ends_at: '28-02-2022',
+  target_amount: 30,
   monthly: true,
   category: Category.third,
 )
@@ -64,6 +66,7 @@ Budget.create!(
   user: user,
   starts_at: '01-03-2022',
   ends_at: '31-03-2022',
+  target_amount: 60,
   monthly: true,
   category: Category.second,
 )
@@ -71,6 +74,7 @@ Budget.create!(
   user: user,
   starts_at: Time.now.at_beginning_of_month,
   ends_at: Time.now.at_end_of_month,
+  target_amount: 110,
   monthly: true,
   category: Category.second,
 )

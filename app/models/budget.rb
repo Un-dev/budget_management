@@ -1,8 +1,9 @@
 class Budget < ApplicationRecord
-  has_many :expenses
-  belongs_to :category
   belongs_to :user
+  belongs_to :category
+  has_many :expenses, through: :category
 
+  validates :target_amount, presence: true, numericality: { greater_than: 0 }
   def month_label
     starts_at.strftime('%B %Y')
   end

@@ -1,0 +1,10 @@
+<div class="flex flex-col space-y-3 border border-gray-300 w-5/6 h-24 rounded px-5 py-4 bg-white">
+  <% spent = budget.expenses.sum(:amount) %>
+  <div class= 'flex flex-row justify-between items-center'>
+    <%= content_tag :h2, budget.category.title, class: 'text-l' %>
+    <div class='flex flex-row text-xs'>
+      <%= content_tag :p, "Dépenses : #{spent}€ / #{budget.target_amount}€", class: '' %>
+    </div>
+  </div>
+  <%= render 'progress_bar', spent: spent, target: budget.target_amount%>
+</div>
