@@ -1,9 +1,9 @@
 <div class="relative h-4 w-full border border-gray-400 rounded-xl">
   <div class="absolute top-0 h-full left-0 w-full  bg-gray-200 rounded-xl">
   </div>
-  <div class="absolute top-0 h-full left-0 bg-green-400 rounded-xl" style="max-width: 100%; width: <%=spent/target%>%;">
+  <div class="absolute top-0 h-full left-0 bg-green-400 rounded-xl" style="max-width: 100%; width: <%= (spent/target)*100 %>%;">
   </div>
-  <div class="absolute top-0 h-full left-0 bg-red-400 rounded-xl" style="max-width: 100%; width: <%= spent/target-100 %>%;">
+  <div class="absolute top-0 h-full left-0 bg-red-400 rounded-xl" style="max-width: 100%; width: <%= ((spent/target)*100)-100 %>%;">
   </div>
 
 </div>
