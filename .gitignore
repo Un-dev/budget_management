@@ -68,3 +68,5 @@ yarn-debug.log*
 /log/*
 /config/credentials/test.key
 coverage
+
+.DS_Store
