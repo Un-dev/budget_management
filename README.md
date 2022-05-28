@@ -35,3 +35,9 @@ to run the server
 below is the db schema :
 
 ![alt text](https://github.com/Un-dev/budget_management/blob/main/db_schema.png)
+
+## TODO / Nice to have's
+
+- Navigation animation
+
+- Redesign sign in/up screens

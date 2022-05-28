@@ -70,3 +70,4 @@ yarn-debug.log*
 coverage
 
 .DS_Store
+public/service-worker.js*

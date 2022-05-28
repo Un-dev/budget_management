@@ -12,10 +12,13 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <script src="https://cdn.tailwindcss.com"></script>
     <%= stylesheet_link_tag "application" %>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-wallet-black-friday-flaticons-flat-flat-icons.png">
+    <meta name="theme-color" content="#C1E692"/>
   </head>
 
-  <body class="background h-screen">
-    <main class="h-full">
+  <body class="background h-screen w-screen">
+    <main class="h-full w-screen">
       <%= yield %>
     </main>
   </body>
