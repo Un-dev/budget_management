@@ -4,6 +4,8 @@ class Budget < ApplicationRecord
   has_many :expenses, through: :category
 
   validates :target_amount, presence: true, numericality: { greater_than: 0 }
+
+  # TODO: make it impossible to have more than one budget per category per user
   def month_label
     starts_at.strftime('%B %Y')
   end

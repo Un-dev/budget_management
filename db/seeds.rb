@@ -76,7 +76,7 @@ Budget.create!(
   ends_at: Time.now.at_end_of_month,
   target_amount: 110,
   monthly: true,
-  category: Category.second,
+  category: Category.fourth,
 )
 
 Account.create!(user: user, balance: 500, title: 'Principal')
