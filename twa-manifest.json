@@ -1,0 +1,44 @@
+{
+  "packageId": "com.herokuapp.budget_management_phransswa.twa",
+  "host": "budget-management-phransswa.herokuapp.com",
+  "name": "Budget Management",
+  "launcherName": "BM",
+  "display": "standalone",
+  "themeColor": "#C1E692",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#C1E692",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://budget-management-phransswa.herokuapp.com/img/wallet_x_512.png",
+  "maskableIconUrl": "https://budget-management-phransswa.herokuapp.com/img/wallet_x_256.png",
+  "monochromeIconUrl": "https://budget-management-phransswa.herokuapp.com/img/wallet_x_64.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/Users/francois/personnel/budget_management/budget.keystore",
+    "alias": "budget"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 3,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://budget-management-phransswa.herokuapp.com/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "playBilling": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": true
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "orientation": "default",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1"
+}

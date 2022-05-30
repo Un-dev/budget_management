@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/home', to: 'users#index'
 
+  resources :accounts
   resources :transfers
   resources :expenses
   resources :budgets do

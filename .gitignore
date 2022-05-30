@@ -71,3 +71,12 @@ coverage
 
 .DS_Store
 public/service-worker.js*
+
+#android shits
+*.apk*
+*.aab
+*.keystore
+*gradle*
+store_icon.png
+app/src/
+manifest-checksum.txt
