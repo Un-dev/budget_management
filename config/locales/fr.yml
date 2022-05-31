@@ -1,0 +1,9 @@
+fr:
+  new_account: Nouveau compte
+  edit_account: Modifier le compte
+  helpers:
+    label:
+      account:
+        initial_balance: Montant initial
+        main_account: Ceci est mon compte principal
+        title: Titre
