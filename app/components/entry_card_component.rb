@@ -1,6 +1,17 @@
 class EntryCardComponent < ViewComponent::Base
   attr_reader :entry
+
+  def before_render
+    @link =
+      if entry.class.name == 'Transfer'
+        edit_transfer_path(@id)
+      else
+        edit_expense_path(@id)
+      end
+  end
+
   def initialize(entry: nil)
+    @id = entry.id
     @title =
       if entry.class.name == 'Expense'
         entry.title

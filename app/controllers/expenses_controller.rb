@@ -17,12 +17,18 @@ class ExpensesController < ApplicationController
     end
   end
 
-  def edit
-    @expense.update(expense_params)
+  def edit; end
+
+  def update
+    if @expense.update(expense_params)
+      redirect_to url_for(controller: :users, action: :index)
+    else
+      render :edit
+    end
   end
 
   def find_expense
-    @expense = Expense.includes(:budget).find(params[:id])
+    @expense = Expense.find(params[:id])
   end
 
   def expense_params

@@ -1,4 +1,4 @@
-<div class='flex flex-row p-4 w-full items-center space-x-4'>
+<%= link_to @link, class:'flex flex-row p-4 w-full items-center space-x-4' do %>
   <div style="background-color: <%= @color %>" class="flex items-center justify-center rounded-xl h-12 w-12 text-white">
     <%= @icon.html_safe %>
   </div>
@@ -9,5 +9,5 @@
     </div>
     <%= content_tag :p, @amount, class: "#{@amount_color} font-semibold" %>
   </div>
-</div>
+<% end %>
 <hr style="width:100%;border-color: #e3e3e3;text-align:left;margin-left:0">
