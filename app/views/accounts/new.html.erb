@@ -1,7 +1,2 @@
-<%= render 'shared/header' %>
-<%= render 'form', account: @account do |f| %>
-  <fieldset class='flex flex-col'>
-    <%= f.label :balance, class: 'font-semibold' %>
-    <%= f.text_field :balance, class: 'rounded border-gray-400' %>
-  </fieldset>
-<% end %>
+<%= render 'shared/header', title: t(:new_account) %>
+<%= render 'form', account: @account %>

@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
   end
 
   def account_params
-    params.require(:account).permit(:title, :balance, :main_account)
+    params.require(:account).permit(:title, :balance, :main_account, :user_id)
   end
 
   def find_account
