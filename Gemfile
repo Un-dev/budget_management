@@ -64,3 +64,6 @@ gem 'cssbundling-rails'
 
 gem "tailwindcss-rails", "~> 2.0"
 gem "view_component"
+
+#app monitoring
+gem 'newrelic_rpm'
