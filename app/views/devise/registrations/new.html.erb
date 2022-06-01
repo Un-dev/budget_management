@@ -34,8 +34,8 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'w-full rounded border-gray-300' %>
       </div>
 
-      <div class="h-9 w-full flex flex-col rounded items-center justify-center bg-green-600">
-        <%= f.submit "Sign up", class: "actions w-full h-full text-white hover:cursor-pointer" %>
+      <div  class="h-9 w-full flex flex-col rounded items-center justify-center bg-green-600">
+        <%= f.submit "Sign me up", class: "actions w-full h-full text-white hover:cursor-pointer", id: 'confirm-signup' %>
       </div>
       <%= render "devise/shared/links" %>
     </div>
