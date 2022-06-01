@@ -1,7 +1,7 @@
 class Budget < ApplicationRecord
   belongs_to :user
   belongs_to :category
-  has_many :expenses, through: :category
+  has_many :expenses, through: :user
 
   validates :target_amount, presence: true, numericality: { greater_than: 0 }
 

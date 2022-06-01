@@ -13,12 +13,23 @@ class User < ApplicationRecord
   has_many :sent_transfers,
            class_name: 'Transfer',
            foreign_key: 'from_account_id'
+  validates :name, :surname, presence: true
+  before_create :create_budgets
 
   def total_balance
     accounts.sum(:balance)
   end
 
   def transfers
-    accounts.includes([:sent_transfers]).map { |account| account.sent_transfers }.flatten
+    accounts
+      .includes([:sent_transfers])
+      .map { |account| account.sent_transfers }
+      .flatten
+  end
+
+  def create_budgets
+    Category.all.find_each do |category|
+      self.budgets.build(category: category, target_amount: 100, monthly: true)
+    end
   end
 end
