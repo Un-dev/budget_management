@@ -1,6 +1,6 @@
 require 'application_system_test_case'
 
-class ExpenseTest < ApplicationSystemTestCase
+class ExpenseSystemTest < ApplicationSystemTestCase
   setup do
     @user = User.first
     login_as(@user, scope: :user)
