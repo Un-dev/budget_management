@@ -1,2 +1,2 @@
 web: bundle exec puma -C config/puma.rb
-release: RAILS_ENV=production bundle exec rails db:migrate | RAILS_ENV=production bundle exec rails assets:precompile | curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=$RELIC_API_KEY NEW_RELIC_ACCOUNT_ID=3506288 /usr/local/bin/newrelic install -n logs-integration
+release: RAILS_ENV=production bundle exec rails db:migrate && RAILS_ENV=production bundle exec rails assets:precompile && curl -Ls https://download.newrelic.com/install/newrelic-cli/scripts/install.sh | bash && sudo NEW_RELIC_API_KEY=$RELIC_API_KEY NEW_RELIC_ACCOUNT_ID=3506288 /usr/local/bin/newrelic install -n logs-integration
