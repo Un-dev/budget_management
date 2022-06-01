@@ -6,12 +6,12 @@
       <% field_class="w-full" %>
       <div class="<%= field_class %>">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'w-full rounded border-gray-300' %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'w-full' %>
       </div>
 
       <div class="<%= field_class %>">
         <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "current-password", class: 'w-full rounded border-gray-300' %>
+        <%= f.password_field :password, autocomplete: "current-password", class: 'w-full' %>
       </div>
 
       <% if devise_mapping.rememberable? %>
@@ -21,11 +21,12 @@
         </div>
       <% end %>
 
-      <div class="h-9 w-full flex flex-col rounded items-center justify-center bg-green-600">
-        <%= f.submit "Log in", class: "actions text-white" %>
+      <div class="h-9 w-full flex flex-col rounded items-center justify-center bg-green-600 ">
+        <%= f.submit "Log in", class: "actions w-full h-full text-white hover:cursor-pointer" %>
       </div>
       <%= render "devise/shared/links" %>
     </div>
+  </div>
 
-  <% end %>
+<% end %>
 
