@@ -1,4 +1,5 @@
 [![Ruby](https://badgen.net/badge/icon/ruby?icon=ruby&label)](https://https://ruby-lang.org/)
+[![GitHub release](https://img.shields.io/github/v/release/Un-dev/budget_management.svg)](https://github.com/Un-dev/budget_management/releases/)
 
 # Master project
 
