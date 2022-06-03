@@ -1,7 +1,7 @@
-<div class="relative flex flex-col h-2/6 w-full items-center justify-center space-y-5" style="background-color: #C1E692;">
-    <%= content_tag :p, "Bonjour, #{current_user.surname}", class: 'text-gray-600 text-xl font-semibold' %>
-    <%= content_tag :p, "La valeur totale de vos avoirs est de", class: 'text-gray-600 text-sm' %>
-    <hr style="width:50%;border-color: #9ca3af;text-align:left;margin-left:0">
+<div class="relative flex flex-col h-2/6 w-full items-center justify-center space-y-5 bg-primary">
+    <%= content_tag :p, "Bonjour, #{current_user.surname}", class: 'text-gray-800 text-xl font-semibold' %>
+    <%= content_tag :p, "La valeur totale de vos avoirs est de", class: 'text-gray-800 text-sm' %>
+    <hr style="width:50%;border-color: rgb(31 41 55);text-align:left;margin-left:0">
     <%= content_tag :p, "#{current_user.total_balance}€", class: 'text-white text-5xl font-semibold', style: '-webkit-text-stroke: 0.15px darkgray;' %>
     <div class='flex items-center flex-row space-x-6 xl:space-x-32 justify-center w-full absolute -bottom-4'>
       <%= link_to budgets_path do %>

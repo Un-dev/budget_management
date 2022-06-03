@@ -2,7 +2,12 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   mode: "jit",
-  purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
+  purge: {
+    content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
+    options: {
+      safelist: ["bg-primary"],
+    },
+  },
   content: [
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
@@ -12,6 +17,9 @@ module.exports = {
     backdropFilter: {
       none: "none",
       blur: "blur(20px)",
+    },
+    colors: {
+      primary: { DEFAULT: "#53A35F" },
     },
     extend: {
       fontFamily: {

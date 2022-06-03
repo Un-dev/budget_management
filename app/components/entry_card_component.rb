@@ -22,7 +22,7 @@ class EntryCardComponent < ViewComponent::Base
       entry.class.name == 'Expense' ? entry.category.hex_color : '#7E7165'
     @date = entry.date
     @amount = entry.amount
-    @amount_color = @amount > 0 ? 'text-green-400' : ''
+    @amount_color = @amount > 0 ? 'text-green-700' : ''
     @icon =
       if entry.class.name == 'Expense'
         entry.category.icon
