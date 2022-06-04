@@ -19,7 +19,7 @@ module.exports = {
       blur: "blur(20px)",
     },
     colors: {
-      primary: { DEFAULT: "#2A6747" },
+      primary: { DEFAULT: "#2B8A44" },
     },
     extend: {
       fontFamily: {
