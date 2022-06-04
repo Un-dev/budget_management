@@ -20,4 +20,12 @@ class AccountsController < ApplicationController
   def find_account
     @account = Account.find(params[:id])
   end
+
+  def update
+    if @account.update(account_params)
+      redirect_to url_for(controller: :users, action: :index)
+    else
+      render :edit
+    end
+  end
 end
