@@ -15,6 +15,9 @@ module.exports = {
       blur: "blur(20px)",
     },
     extend: {
+      colors: {
+        primary: { DEFAULT: "#2A7347" },
+      },
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
