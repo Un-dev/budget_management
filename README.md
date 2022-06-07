@@ -11,6 +11,7 @@ This is a simple budget app developped in ruby on rails. It is initially aimed a
 
 ```bash
 sudo apt update && sudo apt upgrade -y
+sudo apt install curl -y
 
 # install node node 16 and yarn
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
