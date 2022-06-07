@@ -67,7 +67,7 @@ yarn-debug.log*
 
 /log/*
 /config/credentials/test.key
-coverage
+
 
 .DS_Store
 public/service-worker.js*

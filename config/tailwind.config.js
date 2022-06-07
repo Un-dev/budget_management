@@ -2,11 +2,12 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   mode: "jit",
-  purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   content: [
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
+    "./app/**/*.html.erb",
     "./app/views/**/*",
+    "./src/**/*.{html,js}",
   ],
   theme: {
     backdropFilter: {
