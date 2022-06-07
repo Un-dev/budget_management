@@ -3,13 +3,14 @@
 
 # Budgetize
 
-This is a simple budget app developped in ruby on rails. It is inintially aimed as a final project for my master degree. The goal is to provide to users a simple way to manage their budget with stats analytics, accessible from everywhere (except ios because it cost 100 heckin annual dollars)
+This is a simple budget app developped in ruby on rails. It is initially aimed as a final project for my master degree. The goal is to provide to users a simple way to manage their budget with stats analytics, accessible from everywhere (except ios because it cost 100 heckin annual dollars)
 
 ## Installation
 
 ### This is a complete installation guide for Ubuntu 22.04 (It was required to provide one on Fedora 36 but there is a known install issue of ruby on this particular os and I dont know/have the  time to debug it)
 
 ```bash
+sudo apt update && sudo apt upgrade -y
 
 # install node node 16 and yarn
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
