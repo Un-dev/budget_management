@@ -26,7 +26,7 @@ sudo apt-cache search postgresql | grep postgresql
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt -y update
-sudo apt -y install postgresql-14
+sudo apt -y install postgresql-14 postgresql-contrib libpq-dev
 
 # install ruby 3.0.2
 sudo apt install -y git curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
@@ -34,7 +34,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 source ~/.bashrc
-sudo apt install ruby-full
+sudo apt install -y ruby-full ruby-bundler
 rbenv install mruby-3.0.0
 rbenv global mruby-3.0.0
 
@@ -46,10 +46,12 @@ CREATE ROLE dev WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD 'p4s
 git clone https://github.com/Un-dev/budget_management.git
 cd budget_management
 yarn
+bundle config set --local path 'vendor/bundle'
 bundle
 sudo rails db:create
 sudo rails db:migrate
-rails s
+sudo rails assets:precompile
+sudo rails s
 ```
 
 ### For developpers
