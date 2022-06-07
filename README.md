@@ -10,8 +10,6 @@ This is a simple budget app developped in ruby on rails. It is inintially aimed 
 ### This is a complete installation guide for Ubuntu 22.04 (It was required to provide one on Fedora 36 but there is a known install issue of ruby on this particular os and I dont know/have the  time to debug it)
 
 ```bash
-git clone https://github.com/Un-dev/budget_management.git
-cd budget_management
 
 # install node node 16 and yarn
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
@@ -21,7 +19,7 @@ curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update && sudo apt install yarn
 
-# install postgres
+# install postgres 14
 sudo apt -y install gnupg2 wget vim
 sudo apt-cache search postgresql | grep postgresql
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
