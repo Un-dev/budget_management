@@ -11,7 +11,7 @@ This is a simple budget app developped in ruby on rails. It is initially aimed a
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl -y
+sudo apt install -y curl gnupg2 wget vim 
 
 # install node node 16 and yarn
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
@@ -22,7 +22,6 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt update && sudo apt install yarn
 
 # install postgres 14
-sudo apt -y install gnupg2 wget vim
 sudo apt-cache search postgresql | grep postgresql
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
