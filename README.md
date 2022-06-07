@@ -7,48 +7,55 @@ This is a simple budget app developped in ruby on rails. It is inintially aimed 
 
 ## Installation
 
+### This is a complete installation guide for Ubuntu 22.04 (It was required to provide one on Fedora 36 but there is a known install issue of ruby on this particular os and I dont know/have the  time to debug it)
+
 ```bash
 git clone https://github.com/Un-dev/budget_management.git
 cd budget_management
 
 # install node node 16 and yarn
-dnf module install nodejs:16
-sudo npm install --global yarn
+curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+sudo apt -y install nodejs
+sudo apt install gnupg2
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
 
 # install postgres
+sudo apt -y install gnupg2 wget vim
+sudo apt-cache search postgresql | grep postgresql
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt -y update
+sudo apt -y install postgresql-14
 
-
-#install ruby 3
-sudo dnf install gcc-c++ patch readline readline-devel zlib zlib-devel \
-    libyaml-devel libffi-devel openssl-devel make \
-    bzip2 autoconf automake libtool bison sqlite-devel
-curl -sSL https://rvm.io/mpapis.asc | sudo gpg2 --import -
-curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg2 --import -
-curl -L get.rvm.io | sudo bash -s stable
-rvm reload
-
-rvm requirements run
-#Checking requirements for fedora.
-#Requirements installation successful.
-rvm install 3.0
-
-# install rails
-sudo dnf group install "C Development Tools and Libraries"
-sudo dnf install ruby-devel zlib-devel
+# install ruby 3.0.2
+sudo apt install git curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+sudo apt install ruby-full
+rbenv install mruby-3.0.0
+rbenv global mruby-3.0.0
 
 # start the project
-sudo chown -R $USER /usr/local/rvm/gems/ruby-3.0.0
+sudo -i -u postgres
+psql
+CREATE ROLE dev WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD 'p4ssw0rd';
+# then exit psql and postgres
+git clone https://github.com/Un-dev/budget_management.git
+cd budget_management
 yarn
 bundle
-./bin/rails db:create
-./bin/rails db:migrate
+sudo rails db:create
+sudo rails db:migrate
+rails s
 ```
-
-### For people who may by any chance need to install Budgetize on a raw Fedora 36 workstation
 
 ### For developpers
 
-You will need `Node 16.11.0`, `ruby 3.0.0p0`, `rails 6.1.4.4`, `postgres 14.1`
+You will need `Node 16`, `ruby 3.0.2`, `rails 6.1.6`, `postgres 14`
 
 on the first start :
 
