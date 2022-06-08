@@ -67,3 +67,4 @@ gem "view_component"
 gem 'newrelic_rpm'
 
 gem "tailwindcss-rails", "~> 2.0"
+gem 'gruff'

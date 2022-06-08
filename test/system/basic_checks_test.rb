@@ -17,5 +17,7 @@ class BasicChecksTest < ApplicationSystemTestCase
     assert_text 'Nouvelle entrée'
     visit '/accounts/new'
     assert_text 'Nouveau compte'
+    visit '/analytics'
+    assert_text 'Analyse'
   end
 end
