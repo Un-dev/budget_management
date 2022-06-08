@@ -13,7 +13,8 @@ class AuthTest < ApplicationSystemTestCase
 
   test 'registration should redirect to Account creation' do
     visit '/'
-    click_on 'Sign up !'
+    find('#no_account_yet').click
+    find(:css, "input[id$='user_email']").set('new@user.fr')
     fill_in 'user_email', with: 'new@user.fr'
     fill_in 'user_name', with: 'new'
     fill_in 'user_surname', with: 'user'
