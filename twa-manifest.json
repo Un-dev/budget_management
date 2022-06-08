@@ -1,8 +1,8 @@
 {
   "packageId": "com.herokuapp.budget_management_phransswa.twa",
-  "host": "budget-management-phransswa.herokuapp.com",
-  "name": "Budget Management",
-  "launcherName": "BM",
+  "host": "budgetize-phransswa.herokuapp.com",
+  "name": "Budgetize",
+  "launcherName": "Budgetize",
   "display": "standalone",
   "themeColor": "#C1E692",
   "navigationColor": "#000000",
@@ -20,8 +20,8 @@
     "path": "/Users/francois/personnel/budget_management/budget.keystore",
     "alias": "budget"
   },
-  "appVersionName": "1",
-  "appVersionCode": 3,
+  "appVersionName": "1.2.0",
+  "appVersionCode": 4,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://budgetize-phransswa.herokuapp.com/manifest.json",
@@ -40,5 +40,5 @@
   "fingerprints": [],
   "additionalTrustedOrigins": [],
   "retainedBundles": [],
-  "appVersion": "1"
+  "appVersion": "1.2.0"
 }

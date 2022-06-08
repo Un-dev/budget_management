@@ -1,17 +1,62 @@
 [![Ruby](https://badgen.net/badge/icon/ruby?icon=ruby&label)](https://https://ruby-lang.org/)
 [![GitHub release](https://img.shields.io/github/v/release/Un-dev/budget_management.svg)](https://github.com/Un-dev/budget_management/releases/)
 
-# Master project
+# Budgetize
 
-This is a simple budget app developped in ruby on rails. It is primarly aimed as a final project for my master degree. It will just be a webapp in the first place but i could consider wrapping it in a React-Native Skeleton and deploy it on google store (not ios cuz I dont want).
+This is a simple budget app developped in ruby on rails. It is initially aimed as a final project for my master degree. The goal is to provide to users a simple way to manage their budget with stats analytics, accessible from everywhere (except ios because it cost 100 heckin annual dollars)
 
 ## Installation
 
-### todo : Docker Hub CI
+### This is a complete installation guide for Ubuntu 22.04 (It was required to provide one on Fedora 36 but there is a known install issue of ruby on this particular os and I dont know/have the  time to debug it)
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl gnupg2 wget vim 
+
+# install node node 16 and yarn
+curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+sudo apt -y install nodejs
+sudo apt install gnupg2
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
+
+# install postgres 14
+sudo apt-cache search postgresql | grep postgresql
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt -y update
+sudo apt -y install postgresql-14 postgresql-contrib libpq-dev
+
+# install ruby 3.0.2
+sudo apt install -y git curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+sudo apt install -y ruby-full ruby-bundler
+rbenv install mruby-3.0.0
+rbenv global mruby-3.0.0
+
+# start the project
+sudo -i -u postgres
+psql
+CREATE ROLE dev WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD 'p4ssw0rd';
+# then exit psql and postgres
+git clone https://github.com/Un-dev/budget_management.git
+cd budget_management
+yarn
+bundle config set --local path 'vendor/bundle'
+bundle
+sudo rails db:create
+sudo rails db:migrate
+sudo rails assets:precompile
+sudo rails s
+```
 
 ### For developpers
 
-You will need `Node 16.11.0`, `ruby 3.0.0p0`, `rails 6.1.4.4`, `postgres 14.1`
+You will need `Node 16`, `ruby 3.0.2`, `rails 6.1.6`, `postgres 14`
 
 on the first start :
 
@@ -28,7 +73,7 @@ $ rails db:seed
 then you will just need
 
 ```
-$ rails s
+$ bin/dev
 ```
 
 to run the server
@@ -36,9 +81,3 @@ to run the server
 below is the db schema :
 
 ![alt text](https://github.com/Un-dev/budget_management/blob/main/db_schema.png)
-
-## TODO / Nice to have's
-
-- Navigation animation
-
-- Redesign sign in/up screens
