@@ -1,9 +1,12 @@
 fr:
   header:
     analytics: Analyse
+    budgets: Budgets
     create_account: Nouveau compte
+    create_entry: Nouvelle entrée
     create_transfer: Nouveau transfert
     edit_account: Modifier le compte
+    edit_entry: Modifier l'entrée
     edit_transfer: Modifier le transfert
   helpers:
     label:
