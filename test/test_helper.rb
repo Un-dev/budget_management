@@ -1,7 +1,7 @@
 require 'simplecov'
 SimpleCov.start do
-  add_filter '/test/'
-  add_filter '/config/'
+  # add_filter '/test/'
+  # add_filter '/config/'
 end
 # Previous content of test helper now starts here
 ENV['RAILS_ENV'] ||= 'test'
