@@ -1,6 +1,8 @@
 [![Ruby](https://badgen.net/badge/icon/ruby?icon=ruby&label)](https://https://ruby-lang.org/)
 [![GitHub release](https://img.shields.io/github/v/release/Un-dev/budget_management.svg)](https://github.com/Un-dev/budget_management/releases/)
 
+**University corrector should refer to the 1.1.0-U release tag**
+
 # Budgetize
 
 This is a simple budget app developped in ruby on rails. It is initially aimed as a final project for my master degree. The goal is to provide to users a simple way to manage their budget with stats analytics, accessible from everywhere (except ios because it cost 100 heckin annual dollars)
