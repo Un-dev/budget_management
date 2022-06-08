@@ -1,6 +1,10 @@
 fr:
-  new_account: Nouveau compte
-  edit_account: Modifier le compte
+  header:
+    analytics: Analyse
+    create_account: Nouveau compte
+    create_transfer: Nouveau transfert
+    edit_account: Modifier le compte
+    edit_transfer: Modifier le transfert
   helpers:
     label:
       account:
