@@ -23,6 +23,10 @@ class TransfersController < ApplicationController
 
   def update; end
 
+  def destroy
+    @transfer.destroy
+  end
+
   def find_transfer
     @transfer = Transfer.find(params[:id])
   end

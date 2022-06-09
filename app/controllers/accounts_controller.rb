@@ -21,6 +21,10 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
   end
 
+  def destroy
+    @account.destroy
+  end
+
   def update
     if @account.update(account_params)
       redirect_to url_for(controller: :users, action: :index)
