@@ -23,5 +23,7 @@
       <%= f.datetime_field :date, class: 'rounded border-gray-400 w-full' %>
     </fieldset>
     <%= f.submit %>
+    <%= link_to t(:delete), expense_path(@expense), method: :delete, class: 'self-center text-red-500' if @expense.persisted?%>
+
   </div>
 <% end %>

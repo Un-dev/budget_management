@@ -19,5 +19,7 @@
       <%= f.datetime_field :date, class: 'rounded border-gray-400 w-full' %>
     </fieldset>
     <%= f.submit %>
+
+    <%= link_to t(:delete), transfer_path(@transfer), method: :delete, class: 'self-center text-red-500' if @transfer.persisted?%>
   </div>
 <% end %>

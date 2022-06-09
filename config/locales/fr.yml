@@ -1,8 +1,9 @@
 fr:
+  delete: Supprimer
   header:
     analytics: Analyse
     budgets: Budgets
-    create_account: Nouveau compte
+    create_account: Nouveau compte bancaire
     create_entry: Nouvelle entrée
     create_transfer: Nouveau transfert
     edit_account: Modifier le compte
