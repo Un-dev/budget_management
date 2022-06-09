@@ -15,7 +15,6 @@ class AuthTest < ApplicationSystemTestCase
     visit '/'
     click_on 'Sign up !'
     fill_in 'user_email', with: 'new@user.fr'
-    assert false
     fill_in 'user_name', with: 'new'
     fill_in 'user_surname', with: 'user'
     fill_in 'user_password', with: 'newuser'
