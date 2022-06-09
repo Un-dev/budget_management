@@ -3,7 +3,7 @@
   "host": "budgetize-phransswa.herokuapp.com",
   "name": "Budgetize",
   "launcherName": "Budgetize",
-  "display": "standalone",
+  "display": "fullscreen",
   "themeColor": "#C1E692",
   "navigationColor": "#000000",
   "navigationColorDark": "#000000",
