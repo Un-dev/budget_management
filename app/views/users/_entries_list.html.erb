@@ -1,9 +1,11 @@
 <div class='<%= "h-1/3" if @accounts.empty? %> p-3'>
   <div class='flex flex-row justify-between'>
     <%= content_tag :h2, 'Dépenses récentes', class: 'font-semibold text-xl text-gray-600' %>
-    <div class='flex h-7 w-20 p-2 text-xs bg-white items-center justify-center rounded-lg text-gray-500 border font-semibold border-gray-500'>
-      <%= link_to '+ Entrée', new_expense_path unless @accounts.empty? %>
-    </div>
+    <% unless @accounts.empty? %>
+      <div class='flex h-7 w-20 p-2 text-xs bg-white items-center justify-center rounded-lg text-gray-500 border font-semibold border-gray-500'>
+        <%= link_to '+ Entrée', new_expense_path  %>
+      </div>
+    <% end %>
   </div>
   <div class='flex flex-col h-full items-center justify-center' >
     <% if @accounts.empty? %>
