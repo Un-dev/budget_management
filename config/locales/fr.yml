@@ -10,8 +10,21 @@ fr:
     edit_entry: Modifier l'entrée
     edit_transfer: Modifier le transfert
   helpers:
+    submit:
+      create: Créer
+      update: Modifier
     label:
       account:
         initial_balance: Montant initial
         main_account: Ceci est mon compte principal
         title: Titre
+      expense:
+        amount: Montant
+        category: Catégorie
+        date: Date
+        title: Titre
+      transfer:
+        amount: Montant
+        date: Date
+        from_account: De
+        to_account: Vers

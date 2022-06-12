@@ -22,7 +22,8 @@
       <%= f.label :date, class: 'font-semibold' %>
       <%= f.datetime_field :date, class: 'rounded border-gray-400 w-full' %>
     </fieldset>
-    <%= f.submit %>
+
+    <%= f.submit class: 'h-9 w-full flex flex-col rounded items-center justify-center bg-green-600 text-white' %>
     <%= link_to t(:delete), expense_path(@expense), method: :delete, class: 'self-center text-red-500' if @expense.persisted?%>
 
   </div>

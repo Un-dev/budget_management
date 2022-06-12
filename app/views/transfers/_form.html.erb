@@ -2,13 +2,20 @@
   <% f.object.date = @transfer.date || DateTime.now %>
   <%= render "shared/form_errors", form: f %>
   <div class="flex flex-col p-4 space-y-3">
-    <fieldset class='flex flex-col'>
-      <%= f.label :from_account, class: 'font-semibold' %>
-      <%= f.collection_select :from_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3 w-full' %>
-    </fieldset>
-    <fieldset class='flex flex-col'>
-      <%= f.label :to_account, class: 'font-semibold' %>
-      <%= f.collection_select :to_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3 w-full' %>
+    <fieldset class='flex flex-row w-full space-around justify-around'>
+      <div class='flex flex-col w-1/2'>
+        <%= f.label :from_account, class: 'font-semibold' %>
+        <%= f.collection_select :from_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3 w-full' %>
+      </div>
+      <div class='flex items-center justify-center h-10 md:h-11 w-10 md:w-11 self-end'>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="lightgray" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+      </div>
+      <div class='flex flex-col w-1/2'>
+        <%= f.label :to_account, class: 'font-semibold' %>
+        <%= f.collection_select :to_account_id, current_user.accounts.all, :id, :title, {default: current_user.accounts.first}, class: 'rounded border-gray-400 h-11 pl-3 w-full' %>
+      </div>
     </fieldset>
     <fieldset class='flex flex-col'>
       <%= f.label :amount, class: 'font-semibold' %>
@@ -18,8 +25,8 @@
       <%= f.label :date, class: 'font-semibold' %>
       <%= f.datetime_field :date, class: 'rounded border-gray-400 w-full' %>
     </fieldset>
-    <%= f.submit %>
 
+    <%= f.submit class:'h-9 w-full flex flex-col rounded items-center justify-center bg-green-600 text-white' %>
     <%= link_to t(:delete), transfer_path(@transfer), method: :delete, class: 'self-center text-red-500' if @transfer.persisted?%>
   </div>
 <% end %>

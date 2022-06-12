@@ -21,7 +21,7 @@
       <%= f.label :main_account, class: 'font-semibold' %>
     </fieldset>
     
-    <%= f.submit %>
+    <%= f.submit class:'h-9 w-full flex flex-col rounded items-center justify-center bg-green-600 text-white' %>
     <%= link_to t(:delete), account_path(@account), method: :delete, class: 'self-center text-red-500' if @account.persisted?%>
 
   </div>
